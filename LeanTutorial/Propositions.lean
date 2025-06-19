@@ -4,30 +4,30 @@ variable (p : Prop)
 example : p ∧ q ↔ q ∧ p :=
 Iff.intro
 (
-    fun h: p ∧ q => show q ∧ p from And.intro (h.right) (h.left)
+    fun h => And.intro (h.right) (h.left)
 )
 (
-    fun h: q ∧ p => show p ∧ q from And.intro (h.right) (h.left)
+    fun h=> And.intro (h.right) (h.left)
 )
 
 
 example: p ∨ q ↔ q ∨ p :=
 Iff.intro
 (
-    fun h: p ∨ q => show q ∨ p from Or.elim h (fun hp: p => show q ∨ p from Or.intro_right q hp ) (fun hq: q => show q ∨ p from Or.intro_left p hq)
+    fun h =>  Or.elim h (fun hp =>  Or.inr hp ) (fun hq => Or.inl hq)
 )
 (
-    fun h: q ∨ p => show p ∨ q from Or.elim h (fun hp => Or.inr hp) (fun hq => Or.inl hq)
+    fun h => Or.elim h (fun hp => Or.inr hp) (fun hq => Or.inl hq)
 )
 
 -- Associativity equivalences
 example : (p ∧ q) ∧ r ↔ p ∧ (q ∧ r) :=
 Iff.intro
 (
-    fun h: (p ∧ q) ∧ r => show p ∧ (q ∧ r) from And.intro (h.left.left) (And.intro h.left.right h.right)
+    fun h: (p ∧ q) ∧ r =>  And.intro (h.left.left) (And.intro h.left.right h.right)
 )
 (
-    fun h: p ∧ (q ∧ r)=> show (p ∧ q) ∧ r from And.intro (And.intro h.left h.right.left) h.right.right
+    fun h: p ∧ (q ∧ r)=> And.intro (And.intro h.left h.right.left) h.right.right
 )
 
 example (p q r : Prop): (p ∨ q) ∨ r ↔ p ∨ (q ∨ r) :=
