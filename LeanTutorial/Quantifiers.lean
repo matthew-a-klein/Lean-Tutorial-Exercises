@@ -91,3 +91,24 @@ let t := r.mpr
 match em (shaves barber barber) with
 | Or.inl p => (s p) p
 | Or.inr np => np (t np)
+
+
+--4
+
+def even (n : Nat) : Prop := ∃x: Nat, n = 2 * x
+
+def odd(n: Nat): Prop := ∃ x : Nat, n = 2 * x - 1
+
+def prime (n : Nat) : Prop := n >=2 ∧ ¬∃(x y: Nat), x !=1 ∧ y != 1 ∧ n= x * y
+
+def infinitely_many_primes : Prop := ∀ n : Nat, ∃ p : Nat, p > n ∧ prime p
+
+def Fermat_prime (n : Nat) : Prop := prime n ∧ ∃ x: Nat, n = 2^2^x
+
+def infinitely_many_Fermat_primes : Prop := ∀ n : Nat, ∃ p : Nat, p > n ∧ Fermat_prime p
+
+def goldbach_conjecture : Prop := ∀n: Nat, n > 2 ∧ even n → ∃ x y: Nat, prime x ∧ prime y ∧ x + y = n
+
+def Goldbach's_weak_conjecture : Prop := ∀n: Nat, odd n ∧ n > 5 → ∃ x y z : Nat, prime x ∧ prime y ∧ prime z ∧ n = x + y + z
+
+def Fermat's_last_theorem : Prop := ∀ a b c: Nat, ¬∃ n: Nat, n > 2 ∧ a^n + b^n = c^n
