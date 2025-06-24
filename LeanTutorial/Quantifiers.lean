@@ -76,3 +76,18 @@ example : (∀ x, r → p x) ↔ (r → ∀ x, p x) := Iff.intro
         fun hr =>
           h hr x
   )
+
+-- 3 the barber paradox
+
+variable (men : Type) (barber : men)
+variable (shaves : men → men → Prop)
+
+example (Men : Type) (barber : Men)
+  (shaves : Men → Men → Prop)
+  (h : ∀ x : Men, shaves barber x ↔ ¬ shaves x x) : False :=
+let r := h barber
+let s := r.mp
+let t := r.mpr
+match em (shaves barber barber) with
+| Or.inl p => (s p) p
+| Or.inr np => np (t np)
